@@ -34,7 +34,7 @@ The project utilizes a labeled dataset containing examples of both spam and legi
 Contributions to the project are welcome! Feel free to submit issues, feature requests, or pull requests to help improve the functionality and performance of the spam detection system.
 
 ## License
-This project is licensed under the [MIT]. See the [MIT](LICENSE) file for more details.
+This project is licensed under the [Apache]. See the [Apache](LICENSE) file for more details.
 
 ---
 
