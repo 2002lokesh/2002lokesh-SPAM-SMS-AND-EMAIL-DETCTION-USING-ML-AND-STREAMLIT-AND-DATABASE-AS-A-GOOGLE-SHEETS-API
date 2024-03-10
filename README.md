@@ -1,1 +1,2 @@
-# 2002lokesh-SPAM-SMS-AND-EMAIL-DETCTION-USING-ML-AND-STREAMLIT-AND-DATABASE-AS-A-GOOGLE-SHEETS-API
+# email-spam-classifier-new
+End to end code for the email spam classifier project
