@@ -1,0 +1,27 @@
+name: Move Code to Another Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  move-code:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source repo
+      uses: actions/checkout@v2
+      with:
+        repository: 2002lokesh/2002lokesh-SPAM-SMS-AND-EMAIL-DETCTION-USING-ML-AND-STREAMLIT-AND-DATABASE-AS-A-GOOGLE-SHEETS-API
+        token: ${{ secrets.GIT_TOKEN }}
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "lokeshk2002"
+        git config --global user.email "lokeshkcse314@gmail.com"
+
+    - name: Push to target repo
+      run: |
+        git remote add target https://lokeshkcse314@gmail.com:${{ secrets.GIT_TOKEN }}@github.com/2002lokesh/main.git
+        git push -f target main
