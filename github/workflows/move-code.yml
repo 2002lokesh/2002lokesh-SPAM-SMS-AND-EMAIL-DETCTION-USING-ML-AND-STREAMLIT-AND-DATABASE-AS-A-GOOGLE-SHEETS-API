@@ -1,0 +1,41 @@
+name: Auto-move code to another repository
+
+on:
+  push:
+    branches:
+      - main  # Triggers when code is pushed to the main branch
+
+jobs:
+  move_code:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the source repository (this repo)
+      - name: Checkout Source Repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Git configuration for commits
+      - name: Set up Git
+        run: |
+          git config --global user.name "Lokesh"
+          git config --global user.email "lokeshkcse314@gmail.com"
+
+      # Step 3: Clone the target repository (main.git)
+      - name: Clone Target Repository
+        env:
+          TARGET_REPO: 'https://github.com/2002lokesh/main.git'
+          TARGET_USERNAME: ${{ secrets.GIT_USERNAME }}
+          TARGET_TOKEN: ${{ secrets.GIT_TOKEN }}
+        run: |
+          git clone https://${{ secrets.GIT_USERNAME }}:${{ secrets.GIT_TOKEN }}@$TARGET_REPO target-repo
+          cd target-repo
+          git checkout main || git checkout -b main
+
+      # Step 4: Sync code from source to target repository (excluding .git folder)
+      - name: Sync Source to Target
+        run: |
+          rsync -av --exclude '.git' . ../target-repo/
+          cd target-repo
+          git add .
+          git commit -m "Auto-sync changes from source repository"
+          git push https://${{ secrets.GIT_USERNAME }}:${{ secrets.GIT_TOKEN }}@$TARGET_REPO main
